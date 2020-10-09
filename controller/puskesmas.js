@@ -202,6 +202,7 @@ exports.getJarakPuskes = (data, radius) =>
                             _id: r[i]._id,
                             noTelp: r[i].noTelp,
                             jamBuka: r[i].jamBuka,
+                            fasilitas: r[i].fasilitas,
                             jarak: jarak,
                             lat: r[i].lat,
                             lon: r[i].lon
@@ -214,6 +215,7 @@ exports.getJarakPuskes = (data, radius) =>
                             _id: r[i]._id,
                             noTelp: r[i].noTelp,
                             jamBuka: r[i].jamBuka,
+                            fasilitas: r[i].fasilitas,
                             jarak: jarak,
                             lat: r[i].lat,
                             lon: r[i].lon

@@ -12,6 +12,9 @@ const userSchema = mongoose.Schema({
     noTelp: {
         type : String
     },
+    fasilitas: [{
+       nama: String
+    }],
     gambar: Array,
     lat: String,
     lon: String,
