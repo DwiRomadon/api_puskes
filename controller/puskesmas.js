@@ -13,7 +13,8 @@ exports.inputData = (data, gambar) =>
             noTelp:  data.noTelp,
             gambar: gambar,
             lat: data.lat,
-            lon: data.lon
+            lon: data.lon,
+            fasilitas: data.fasilitas
         })
         newPuskes.save()
             .then(r=>{
@@ -274,6 +275,20 @@ exports.getJarakPuskes = (data, radius) =>
 //                 response.commonErrorMsg('Mohon Maaf Terjadi Kesalahan Pada Server')
 //             })
 //     })
+
+exports.hapusData = (id) =>
+    new Promise(async (resolve, reject)=>{
+        puskesmas.deleteOne(
+            {
+                _id: ObjectId(id)
+            },
+        )
+            .then(r=>{
+                resolve(response.commonSuccessMsg('Berhasil menghapus data'))
+            }).catch(err => {
+            reject(response.commonErrorMsg('Mohon Maaf Input Data Gagal'))
+        })
+    })
 
 const getData = (latLongOrigin, latLongDesti) =>
     new Promise(async (resolve, reject)=>{

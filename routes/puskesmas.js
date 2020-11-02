@@ -91,6 +91,12 @@ router.post("/getjarak/:radius", (req, res) => {
         .then((result) => res.json(result))
         .catch((err) => res.json(err))
 })
+
+router.delete("/hapusdata/:id", (req, res) => {
+    puskesmas.hapusData(req.params.id)
+        .then((result) => res.json(result))
+        .catch((err) => res.json(err))
+})
 //
 // router.post("/getjarakbyid/:radius/:id", (req, res) => {
 //     puskesmas.getJarakPetshopById(req.body, req.params.radius, req.params.id)
