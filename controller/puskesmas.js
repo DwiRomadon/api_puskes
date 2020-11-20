@@ -191,13 +191,27 @@ exports.getJarakPuskes = (data, radius) =>
         await puskesmas.find()
             .then(async r =>{
                 let datas = []
+                let terdekat   = []
                 let originLatLong = data.lat + "," + data.lon
                 for (i in r){
                     let latLongDesti = r[i].lat + "," + r[i].lon
                     let jarak = await getData(originLatLong, latLongDesti).then()
                     let rad = jarak.distance.replace("km", "")
+
                     if(Number(rad) <= Number(radius)){
                         datas.push({
+                            gambar: r[i].gambar,
+                            namaPuskes: r[i].namaPuskes,
+                            _id: r[i]._id,
+                            noTelp: r[i].noTelp,
+                            jamBuka: r[i].jamBuka,
+                            fasilitas: r[i].fasilitas,
+                            jarak: jarak,
+                            lat: r[i].lat,
+                            lon: r[i].lon
+                        })
+                    }else {
+                        terdekat.push({
                             gambar: r[i].gambar,
                             namaPuskes: r[i].namaPuskes,
                             _id: r[i]._id,
@@ -223,7 +237,15 @@ exports.getJarakPuskes = (data, radius) =>
                         })
                     }
                 }
-                resolve(response.commonResult(datas.sort(compare)))
+
+                if (datas.length === 0){
+                    datas = terdekat.sort(compare)
+                    let dataKu = []
+                    dataKu = [datas[0]]
+                    resolve(response.commonResult(dataKu))
+                }else {
+                    resolve(response.commonResult(datas.sort(compare)))
+                }
             }).catch(err => {
                 response.commonErrorMsg('Mohon Maaf Terjadi Kesalahan Pada Server')
             })
